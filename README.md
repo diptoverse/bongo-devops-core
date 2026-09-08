@@ -226,3 +226,52 @@ The change was made in commit `d9cb8378` by `wrong_person` on September 4, 2026 
 `git log -p` → Find the port change → `git blame db_fix.conf` → Identify the commit and author
 
 > When something changes unexpectedly, Git history helps us find who changed it, what changed, and when.
+
+## Task 7: **The Safety Net**
+
+### Objective
+
+▪ Create 5 lines of work in progress in `feature.py` without committing.
+
+▪ Use `git stash` to temporarily hide the unfinished work.
+
+▪ Fix the bug in `main.py`, commit and push the fix.
+
+▪ Use `git stash pop` to restore the unfinished work.
+
+### Concept
+
+▪ `git stash` temporarily saves uncommitted changes so we can switch context without committing incomplete work.
+
+▪ After fixing the urgent change, `git stash pop` restores the stashed work back to the working directory.
+
+▪ This allows us to handle urgent fixes without losing our work in progress.
+
+### How I Did It
+
+▪ I created `main.py` on the `main` branch with intentional mistakes, committed it, and pushed it to GitHub.
+
+▪ I created and switched to the `feature/recovery` branch and added 5 lines of code to `feature.py` without committing.
+
+▪ I used a named stash to temporarily hide the unfinished work.
+
+▪ I switched back to `main`, fixed `main.py`, committed the fix, and pushed it.
+
+▪ I verified the stash with `git stash list` and confirmed that `feature.py` was not present before restoring the stash.
+
+▪ I used `git stash pop` to restore `feature.py`, then committed and pushed the recovered work to the feature branch.
+
+### Commands
+
+| Command | Purpose |
+|---|---|
+| `git stash push -m "stash-name"` | Stash the uncommitted work with a message |
+| `git stash list` | View the available stashes |
+| `git stash pop` | Restore the latest stash and remove it from the stash list |
+| `git status` | Check the current working tree |
+
+### Workflow
+
+`feature/recovery` → create `feature.py` → `git stash` → `main` → fix `main.py` → `git commit` → `git push` → `git stash list` → `git stash pop` → commit recovered work
+
+> Git stash lets us temporarily put unfinished work aside so an urgent change can be handled without losing the current work.
