@@ -1,0 +1,7 @@
+Kernel tuning will be configured here.
+
+CPU: CPU should have higher processing
+
+Memory: Memory should be SSD
+
+Netork: 5G network added
