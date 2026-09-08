@@ -1,7 +1,8 @@
-cpu_threshold = 150 #bug -> highest is 100
+cpu_threshold = 85 #bugfix -> highest is 100 -> fixed now
 memory_threshold = 80 
 disk_threshold = 90
-check_interval = -10 #bug -> negative interval not possible
+check_interval = 10 #bugfix -> negative interval not possible ->fixed now
 
-print("Running health check"
+print("Code using Vim")
+print("Running health check")
 print(f"Checking every {check_interval} seconds")
