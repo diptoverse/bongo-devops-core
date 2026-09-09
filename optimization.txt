@@ -1,2 +1,2 @@
-Optimized and written by Vim!
+Optimized and written by Nano!
 
