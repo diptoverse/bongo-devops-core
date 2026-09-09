@@ -1,1 +1,1 @@
-System performance tuning stopped
+System performance tuning inactive
