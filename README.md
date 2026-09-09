@@ -275,3 +275,157 @@ The change was made in commit `d9cb8378` by `wrong_person` on September 4, 2026 
 `feature/recovery` → create `feature.py` → `git stash` → `main` → fix `main.py` → `git commit` → `git push` → `git stash list` → `git stash pop` → commit recovered work
 
 > Git stash lets us temporarily put unfinished work aside so an urgent change can be handled without losing the current work.
+
+## Task 8: **The Clean Merge**
+
+### Objective
+
+Complete the Git squash workflow:
+
+▪ Make 3 small commits on `feature/system-optimization`
+
+▪ Merge the feature branch into `main` using `git merge --squash`
+
+▪ Create one clean commit on `main`
+
+### Concept
+
+▪ During development, a feature branch can contain multiple small commits that are useful while working but not necessary in the final history.
+
+▪ `git merge --squash` combines the changes from those commits without bringing their individual commit history into `main`.
+
+▪ We can then create one clean commit on `main` containing all the feature changes.
+
+### How I Did It
+
+▪ I made 3 small changes to `kernel_tuning.txt` on the `feature/system-optimization` branch and committed each change separately.
+
+▪ I switched back to `main` and used `git merge --squash feature/system-optimization` to combine the changes.
+
+▪ I created one clean commit on `main` and pushed the updated history to GitHub.
+
+### Commands
+
+| Command | Purpose |
+|---|---|
+| `git switch feature/system-optimization` | Switch to the feature branch |
+| `git add kernel_tuning.txt` | Stage the changes |
+| `git commit -m "..."` | Create each of the 3 feature commits |
+| `git switch main` | Switch back to the main branch |
+| `git merge --squash feature/system-optimization` | Combine the feature changes without the individual commits |
+| `git commit -m "..."` | Create one clean commit on `main` |
+| `git push origin main` | Push the clean commit to GitHub |
+
+### Workflow
+
+`feature/system-optimization` → 3 small commits → `git switch main` → `git merge --squash` → one clean commit → `git push origin main`
+
+> Squash merging lets us keep the development history on the feature branch while keeping `main` clean and focused.
+
+## Task 9: **The Conflict Resolution**
+
+### Objective
+
+▪ Create conflicting changes on the same line in two branches.
+
+▪ Merge the branches and resolve the merge conflict.
+
+▪ Complete the merge after resolving the conflict.
+
+### Concept
+
+▪ A merge conflict happens when two branches modify the same part of a file differently.
+
+▪ Git cannot decide which change to keep, so we manually resolve the conflict.
+
+▪ After resolving the conflict, we stage the file and commit the merge.
+
+### Problem Faced
+
+▪ The first two attempts resulted in a fast-forward merge instead of a conflict because `main` had no new commit after the branch was created.
+
+### How I Solved It
+
+▪ I made a separate commit on `main` with different text on the same line after creating the feature branch.
+
+▪ This caused both branches to diverge from the same point and triggered the merge conflict.
+
+▪ I manually edited `optimization.txt`, removed the conflict markers, staged the resolved file, and completed the merge.
+
+### Commands
+
+| Command | Purpose |
+|---|---|
+| `git merge conflict/optimization-test` | Merge the branch and trigger the conflict |
+| `git status` | Check the conflicted file |
+| `git add optimization.txt` | Mark the conflict as resolved |
+| `git commit` | Complete the merge |
+
+### Workflow
+
+`create branch` → make conflicting changes → `git merge` → conflict → resolve manually → `git add` → `git commit`
+
+> Merge conflicts are not errors to avoid. They are situations where Git needs us to decide which changes should remain.
+
+## Task 10: **The Time Machine**
+
+### Objective
+
+Complete the Git recovery workflow:
+
+▪ Make a commit
+
+▪ Move `HEAD` back using `git reset --hard HEAD~1`
+
+▪ Use `git reflog` to find the lost commit hash
+
+▪ Move `HEAD` back to the lost commit and recover it
+
+### Concept
+
+▪ `HEAD` is Git's pointer to the commit we are currently on. When we make a new commit, `HEAD` moves forward to that commit.
+
+▪ `git reset` moves the branch pointer and `HEAD` to another commit. With `--hard`, the working directory and staging area are also updated to match that commit.
+
+▪ `HEAD~1` means the commit one step before the current `HEAD`. So `git reset --hard HEAD~1` moves `HEAD` back by one commit.
+
+▪ `git reflog` keeps a record of where `HEAD` has pointed, which allows us to find a commit that is no longer visible in the normal Git history.
+
+▪ Once we find the lost commit hash, `git reset --hard <hash>` moves `HEAD` and the branch pointer back to that commit and brings the work back.
+
+### How I Did It
+
+▪ I created and committed a test file, then used `git reset --hard HEAD~1` to move `HEAD` back and remove the commit from the normal history.
+
+▪ I used `git reflog` to find the hash of the lost commit and verified it before recovering it.
+
+▪ I used `git reset --hard <hash>` to move `HEAD` back to the lost commit and confirmed that the commit and file were restored.
+
+### Commands
+
+| Command                   | Purpose                                                         |
+| ------------------------- | --------------------------------------------------------------- |
+| `git commit -m "..."`     | Create the commit to be recovered                               |
+| `git reset --hard HEAD~1` | Move `HEAD` and the branch pointer back by one commit           |
+| `git reflog`              | Show previous positions of `HEAD` and find the lost commit      |
+| `git show <hash>`         | Inspect the lost commit                                         |
+| `git reset --hard <hash>` | Move `HEAD` and the branch pointer back to the recovered commit |
+| `git log --oneline`       | Verify that the recovered commit is back in the history         |
+                           |
+
+### Workflow
+
+`git commit` → `git reset --hard HEAD~1` → `git reflog` → find lost commit hash → `git reset --hard <hash>` → verify recovery
+
+> Git can move `HEAD` and branch pointers backward, but reflog keeps track of where `HEAD` was so a lost commit can often be recovered.
+
+
+## Conclusion
+
+This assignment took Git from basic version control to real workflow situations: branching, investigation, context switching, clean history, conflict resolution, and recovery.
+
+▪ Git is not just about saving code. It's about knowing where your work is, how it got there, and how to recover when something goes wrong.
+
+▪ The commands may change from task to task, but the idea stays the same: make changes intentionally, keep history useful, and know how to get back when needed.
+
+> An effective Git workflow is less about remembering commands and more about knowing what state your repository is in.
